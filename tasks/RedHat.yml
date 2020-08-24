@@ -1,9 +1,10 @@
-- name: install the latest version of jq (JSON processor) - RedHat
+- name: Install epel repo for RHEL/Centos
+  yum:
+    name: epel-release
+    state: latest
+    enablerepo: base
+    
+- name: install the latest version of jq (JSON processor) and curl - RedHat
   yum:
     name: jq
-    state: latest
-
-- name: install curl - RedHat
-  yum:
-    name: curl
     state: latest
