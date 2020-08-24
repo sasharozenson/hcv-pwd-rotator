@@ -1,3 +1,3 @@
-# root-password-rotator
+# hcv-pwd-rotator
 
-This role is dedicated to painless root password rotation for our hosts in production
+This Ansible role is for painless root password rotation by using HashiCorp Vault
