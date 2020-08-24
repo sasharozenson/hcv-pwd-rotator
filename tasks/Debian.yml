@@ -1,9 +1,6 @@
-- name: install the latest version of jq (JSON processor) - Debian
+- name: install the latest version of jq (JSON processor) and curl - Debian
   apt:
-    name: jq
-    state: present
-
-- name: install curl - Debian
-  apt:
-    name: curl
+    pkg:
+    - jq
+    - curl
     state: present
