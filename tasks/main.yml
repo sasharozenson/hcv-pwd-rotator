@@ -1,0 +1,40 @@
+---
+# tasks file for root-password-rotator
+- include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- name: Copy password rotation script to /usr/local/bin
+  copy:
+    src: "{{ role_path }}/files/rotate_linux_password.sh"
+    dest: /usr/local/bin/
+    mode: preserve
+
+- name: Adds password rotation script on top of crontab
+  cron:
+    name: "Adds password rotation script"
+    hour: "6,18"
+    minute: "0"
+    job: "/usr/local/bin/rotate_linux_password.sh root >> /tmp/root-password-rotator.log 2>&1"
+
+- name: Set VAULT_TOKEN environment variable
+  cron:
+    name: VAULT_TOKEN
+    env: yes
+    value: "{{ VAULT_TOKEN }}"
+
+- name: Set VAULT_TOKEN environment variable
+  cron:
+    name: VAULT_ADDR
+    env: yes
+    value: "{{ VAULT_ADDR }}"
+
+- name: Set authorized key
+  authorized_key:
+    user: root
+    key: '{{ item }}'
+    state: present
+  with_file:
+    - public_keys/keys

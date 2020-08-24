@@ -1,0 +1,9 @@
+- name: install the latest version of jq (JSON processor) - Debian
+  apt:
+    name: jq
+    state: present
+
+- name: install curl - Debian
+  apt:
+    name: curl
+    state: present

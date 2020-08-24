@@ -1,0 +1,9 @@
+- name: install the latest version of jq (JSON processor) - RedHat
+  yum:
+    name: jq
+    state: latest
+
+- name: install curl - RedHat
+  yum:
+    name: curl
+    state: latest
